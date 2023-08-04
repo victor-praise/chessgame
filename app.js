@@ -3,7 +3,8 @@ const playerDisplay = document.querySelector("#player")
 
 const infoDisplay = document.querySelector("#info-display")
 const width = 8
-
+let playerGo = 'black'
+playerDisplay.textContent = 'black'
 const startPieces = [
     rook,knight,bishop,queen,king,bishop,knight,rook,
     pawn,pawn,pawn,pawn,pawn,pawn,pawn,pawn,
@@ -69,6 +70,35 @@ e.preventDefault()
 }
 function dragDrop(e){
     e.stopPropagation();
-    e.target.append(draggedElement)
-    e,target.remove();
+    //console.log(e.target);
+    const taken = e.target.classList.contains('piece')
+    //e.parentNode.append(draggedElement)
+    // e.target.append(draggedElement)
+    // e.target.remove();
+    changePlayer()
+}
+function changePlayer(){
+    if(playerGo==="black"){
+        reverseIds()
+        playerGo="white"
+        playerDisplay.textContent = 'white'
+    }
+    else{
+        revertIds()
+        playerGo="black"
+        playerDisplay.textContent = "black"
+    }
+}
+
+function reverseIds(){
+    const allSquares = document.querySelectorAll(".square");
+    allSquares.forEach((square,i)=> {
+        square.setAttribute('square-id', (width*width -1) - i)
+    })
+}
+function revertIds(){
+    const allSquares = document.querySelectorAll(".square");
+    allSquares.forEach((square,i)=> {
+        square.setAttribute('square-id', i)
+    })
 }
