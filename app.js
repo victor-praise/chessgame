@@ -70,8 +70,28 @@ e.preventDefault()
 }
 function dragDrop(e){
     e.stopPropagation();
-    //console.log(e.target);
+  
+   const correctGo =  draggedElement.classList.contains(playerGo)
     const taken = e.target.classList.contains('piece')
+    const opponentGo = playerGo === 'white' ? 'black' : 'white'
+    const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo)
+    
+    
+    if(correctGo){
+    //     if(takenByOpponent && valid){
+    //             e.parentNode.append(draggedElement)
+    // // e.target.append(draggedElement)
+    //              e.target.remove();
+    //             changePlayer()
+    //             return
+    //     }
+
+        if(taken){
+            infoDisplay.textContent = "you cannot go here!"
+            setTimeout(()=> infoDisplay.textContent = "",2000)
+            return
+        }
+    }
     //e.parentNode.append(draggedElement)
     // e.target.append(draggedElement)
     // e.target.remove();
